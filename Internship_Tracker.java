@@ -1,91 +1,9 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.util.concurrent.ThreadLocalRandom;
-//Change access or something to private in order to maintain the privacy of the code 
-class Internship_Tracker{
-    public static void main(String[] args){
-        ArrayList <String> usr_Info = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Welcome to the Pathway+");
-        int EscPara = 0;
-        while(EscPara == 0){
-        System.out.println("\nAre you a returning user?(Yes/No):");
-        String UsrResp = input.nextLine();
-        String UsrName;
-        String Pass_wrd;
-        String Pass_wrd_Conf;
-        int attempt = 0;
-        UsrResp = UsrResp.toLowerCase();
-        if(UsrResp.equals("yes")){
-            System.out.println("Enter your usrname:");
-            UsrName = input.nextLine();
-            try(BufferedReader reader = new BufferedReader(new FileReader(UsrName))){
-                System.out.printf("Welcome back %s,\nEnter your password:",UsrName);
-                Pass_wrd = input.nextLine();
-                reader.readLine();
-                Pass_wrd_Conf = reader.readLine();
-                while(attempt<=3){
-                if(Pass_wrd == Pass_wrd_Conf){
-                    System.out.printf("\n\nWelcome Back %s",UsrName);
-                    attempt = 3;
-                }
-                else{
-                    System.out.println("That password is incorrect please try again");
-                    attempt++;
-                    if(attempt==3){
-                        System.out.println("Too many failed logins. Terminating");
-                        System.exit(0);
-                    }
-                }
-            }
-
-            }
-            catch(Exception e){
-                System.err.println("Account doesn't exist.");
-                System.exit(0);
-            }
-            EscPara++;
-            //Continue account process from here. 
-        }
-        else if(UsrResp.equals("no")){
-            System.out.println("Lets get an account started for you!");
-            System.out.println("What username would you like to use?:");
-            UsrName = input.nextLine();
-            try{BufferedWriter file = new BufferedWriter(new FileWriter(UsrName));
-                file.write(UsrName);
-                file.write("\n");
-                System.out.println("What is the password you would like to use?");
-                Pass_wrd = input.nextLine();
-                file.write(Pass_wrd);
-                //You could utilize a randomization function in order to provide the user a 4 number code to enter to confirm the new account 
-                file.close();
-                System.out.println("Your account is now setup.\nRun program again with your account information.");
-                input.close();
-                System.exit(0);
-            }
-            catch(Exception e){
-                System.err.println("File Failed to Open.");
-                input.close();
-                System.exit(0);
-            }
-            EscPara++;
-        }
-        else{
-            System.out.println("Enter yes or no for you option choice:");
-        }
-    }
-    input.close();
-}
-    //Continue coding here 
-    public static String getInternship(int randomInt, String major, int year) {
-	    String internship = "No internship";
+    public static String getInternship(String major, int year) {
+        int randomInt;
+	    String internship = "";
 	    switch (major) {
 
-	    case "computer science":
+	    case "CS":
             int min = 1;
             int max = 2;
 	        switch (year) {
@@ -187,245 +105,557 @@ class Internship_Tracker{
 	        }
 	    break;
 
-	    case "mechanical engineering":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                break;            
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3:
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4:
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
+	   case "ME":
+	        min = 1;
+	        max = 1;
+	        switch(year){
+	            case 1://year 1
+	                max = 1;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nIntroduction to Engineering Workshop Internship:\n\nThis internship introduces first-year mechanical engineering students to the fundamentals of hands-on engineering practice. Interns work in supervised workshop environments, gaining exposure to basic manufacturing processes such as machining, welding, and 3D printing. The program emphasizes understanding mechanical components, interpreting engineering drawings, and adhering to safety protocols. By the end, interns develop practical skills in mechanical assembly, teamwork, and technical communication.";
+	                        break;
+	                }    
+	                break;            
+
+	            case 2://year 2
+	                max = 2;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nCAD Design Internship:\n\nThis internship focuses on Computer-Aided Design (CAD) and modeling of mechanical systems. Interns work with professional software such as SolidWorks, AutoCAD, or CATIA to design mechanical parts and assemblies, perform basic stress analyses, and generate engineering documentation. Emphasis is placed on manufacturability, tolerance analysis, and collaboration with design teams.";
+	                        break;
+	                    case 2:
+	                        internship = "\nManufacturing Process Internship:\n\nInterns participate in a manufacturing environment, gaining first-hand exposure to production workflows, machining, material handling, and process optimization. They learn about lean manufacturing principles, quality control, and the role of automation in modern production lines. The experience builds an understanding of how design translates into scalable manufacturing.";
+	                        break;
+	                }    
+	                break;
+
+	            case 3://year 3
+	                max = 7;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nThermal Systems Internship:\n\nInterns assist in analyzing and testing heating, ventilation, and cooling systems, focusing on thermodynamic efficiency and heat transfer. Tasks may include data collection from sensors, energy audits, and simulation of systems using MATLAB or ANSYS Fluent.";
+	                        break;
+	                    case 2:
+	                        internship = "\nAutomotive Engineering Internship:\n\nThis internship provides hands-on experience in the design, analysis, and testing of vehicle systems. Interns may contribute to projects involving powertrains, suspension systems, or lightweight materials. Skills in CAD, finite element analysis (FEA), and prototype testing are commonly developed.";
+	                        break;
+	                    case 3:
+	                        internship = "\nRobotics and Mechatronics Internship:\n\nInterns collaborate with multidisciplinary teams to design mechanical subsystems for robotic applications. They engage in actuator selection, control integration, and motion analysis while working with microcontrollers like Arduino or Raspberry Pi.";
+	                        break;
+	                    case 4:
+	                        internship = "\nRenewable Energy Systems Internship:\n\nThis internship focuses on the design and performance analysis of wind, solar, or hydro energy systems. Interns model mechanical components such as turbines and gear systems, assessing efficiency and sustainability under different environmental conditions.";
+	                        break;
+	                    case 5:
+	                        internship = "\nHVAC Design Internship:\n\nInterns assist with the design and optimization of heating, ventilation, and air conditioning systems for residential or industrial settings. Responsibilities include drafting duct layouts, load calculations, and supporting engineers in energy efficiency assessments.";
+	                        break;
+	                    case 6:
+	                        internship = "\nMaterials Testing Internship:\n\nThis internship focuses on understanding the mechanical properties of materials through laboratory testing, including tensile, fatigue, and impact tests. Interns gain familiarity with materials characterization techniques and data interpretation.";
+	                        break;
+	                    case 7:
+	                        internship = "\nFinite Element Analysis (FEA) Internship:\n\nInterns work with simulation tools such as ANSYS or Abaqus to perform stress and deformation analyses on mechanical structures. They learn meshing techniques, boundary condition setup, and result interpretation for design validation.";
+	                        break;
+	                }    
+	                break;
+
+	            case 4://year 4
+	                max = 10;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nProduct Design Engineer Internship:\n\nA senior-level internship where students contribute to the development and optimization of mechanical products from concept to prototype. They participate in design reviews, FEA analysis, material selection, and manufacturability assessments.";
+	                        break;
+	                    case 2:
+	                        internship = "\nAerospace Systems Internship:\n\nInterns collaborate on the design and testing of mechanical systems for aircraft or spacecraft. Work involves stress analysis, component modeling, and thermal simulation under aerospace standards.";
+	                        break;
+	                    case 3:
+	                        internship = "\nAutomotive Powertrain Internship:\n\nThis internship provides deep exposure to engine mechanics, hybrid systems, and drivetrain optimization. Interns may assist in component testing, performance tuning, or emissions analysis.";
+	                        break;
+	                    case 4:
+	                        internship = "\nManufacturing Engineering Internship:\n\nInterns work on process improvement projects, applying Six Sigma and Lean principles to reduce waste and improve throughput. Exposure includes CNC programming, automation, and quality assurance systems.";
+	                        break;
+	                    case 5:
+	                        internship = "\nMechanical R&D Internship:\n\nInterns assist in experimental testing and design innovation within a research and development lab. They contribute to prototype fabrication, performance evaluation, and technical reporting.";
+	                        break;
+	                    case 6:
+	                        internship = "\nBiomechanical Systems Internship:\n\nA cross-disciplinary internship focused on mechanical design for biomedical devices such as prosthetics, implants, or surgical tools. Interns apply FEA, materials science, and ergonomics principles to enhance human-device interaction.";
+	                        break;
+	                    case 7:
+	                        internship = "\nRenewable Energy Engineer Internship:\n\nInterns analyze and optimize renewable systems, focusing on wind turbine or solar tracker mechanics. They use simulation tools to model load conditions, efficiency, and environmental impacts.";
+	                        break;
+	                    case 8:
+	                        internship = "\nIndustrial Automation Internship:\n\nThis internship focuses on integrating robotics and automated machinery into manufacturing lines. Interns learn PLC programming, system calibration, and mechatronic system troubleshooting.";
+	                        break;
+	                    case 9:
+	                        internship = "\nAerospace Propulsion Internship:\n\nInterns assist with the analysis and testing of propulsion components such as compressors, turbines, and nozzles. The role includes thermodynamic modeling, vibration testing, and CFD analysis.";
+	                        break;
+	                    case 10:
+	                        internship = "\nMechanical Design Optimization Internship:\n\nInterns perform performance and cost optimization studies using CAD and CAE tools. They refine existing designs for efficiency, manufacturability, and environmental sustainability.";
+	                        break;
+	                }    
+	                break;
+	        }
+	        break;
+	    case "CE":
+	        min = 1;
+	        max = 1;
+	        switch(year){
+	            case 1://year 1
+	                max = 1;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nIntro to Civil Design Internship:\n\nAn introductory internship where students observe basic drafting, surveying, and construction processes. Interns learn how design plans are created and applied in small-scale projects, gaining exposure to CAD and site safety fundamentals.";
+	                        break;
+	                }               
+	                break;
+	            case 2://year 2
+	                max = 2;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nStructural Drafting Internship:\n\nInterns assist in creating and reviewing civil and structural drawings using AutoCAD or Revit. They learn to interpret blueprints, understand materials, and apply design standards under engineer supervision.";
+	                        break;
+	                    case 2:
+	                        internship = "\nSurveying Internship:\n\nInterns gain field experience in land measurement and mapping. They use surveying equipment, collect data, and learn how topographic information supports infrastructure design.";
+	                        break;
+	                }    
+	                break;
+	            case 3://year 3
+	                max = 7;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nConstruction Management Internship:\n\nAssist site engineers in planning, scheduling, and quality control. Interns gain insight into cost estimation, materials management, and construction documentation.";
+	                        break;
+	                    case 2:
+	                        internship = "\nTransportation Engineering Internship:\n\nInterns support projects focused on road design, traffic flow, and transportation planning. They analyze roadway data and help optimize infrastructure safety and efficiency.";
+	                        break;
+	                    case 3:
+	                        internship = "\nEnvironmental Engineering Internship:\n\nWork on environmental impact assessments and water treatment systems. Interns learn sustainability practices and regulatory compliance procedures.";
+	                        break;
+	                    case 4:
+	                        internship = "\nGeotechnical Internship:\n\nInterns assist in soil testing, foundation analysis, and site evaluations. They interpret lab results and understand how soil behavior affects structural design.";
+	                        break;
+	                    case 5:
+	                        internship = "\nStructural Engineering Internship:\n\nSupport engineers in designing and analyzing building structures. Interns perform load calculations and help prepare design documents for construction approval.";
+	                        break;
+	                    case 6:
+	                        internship = "\nWater Resources Internship:\n\nInterns work with hydraulic models and water flow simulations. They learn to design pipelines, drainage systems, and flood control measures.";
+	                        break;
+	                    case 7:
+	                        internship = "\nUrban Planning Internship:\n\nParticipate in city development projects and zoning research. Interns assist in mapping, public infrastructure analysis, and sustainable city planning.";
+	                        break;
+	                }    
+	                break;
+	            case 4://year 4
+	                max = 10;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nStructural Design Internship:\n\nInterns design reinforced concrete and steel structures using software like STAAD Pro or ETABS. They apply real-world load and safety design principles.";
+	                        break;
+	                    case 2:
+	                        internship = "\nTransportation Systems Internship:\n\nWork with government or consulting agencies on traffic and infrastructure modeling. Interns learn data analysis and modern transport design methods.";
+	                        break;
+	                    case 3:
+	                        internship = "\nBridge Engineering Internship:\n\nAssist in bridge design, inspection, and maintenance projects. Interns gain understanding of load distribution and safety codes.";
+	                        break;
+	                    case 4:
+	                        internship = "\nHydraulic Engineering Internship:\n\nInterns support river flow modeling, flood prediction, and dam structure analysis. They apply fluid mechanics to real-world civil systems.";
+	                        break;
+	                    case 5:
+	                        internship = "\nConstruction Project Internship:\n\nEngage in on-site supervision, resource allocation, and progress tracking. Interns develop project management and teamwork skills.";
+	                        break;
+	                    case 6:
+	                        internship = "\nUrban Infrastructure Internship:\n\nWork on city planning projects, assisting in road, drainage, and utility layout design. Interns apply sustainable engineering concepts.";
+	                        break;
+	                    case 7:
+	                        internship = "\nGeotechnical Research Internship:\n\nPerform advanced soil and rock stability studies. Interns help prepare reports for foundation and slope design recommendations.";
+	                        break;
+	                    case 8:
+	                        internship = "\nStructural Simulation Internship:\n\nUse finite element software to simulate load behavior in buildings and bridges. Learn optimization techniques and safety compliance.";
+	                        break;
+	                    case 9:
+	                        internship = "\nEnvironmental Impact Internship:\n\nAssist in creating environmental assessments for construction projects. Learn data analysis and sustainability evaluation.";
+	                        break;
+	                    case 10:
+	                        internship = "\nInfrastructure Design Internship:\n\nParticipate in multi-disciplinary projects combining civil, structural, and environmental design. Apply CAD and project coordination skills.";
+	                        break;
+	                }    
+	                break;
+	        }
+	        break;
+
+	    case "BE":
+	        min = 1;
+	        max = 1;
+	        switch(year){
+	            case 1://year 1
+	                max = 1;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nIntro to Biomedical Lab Internship:\n\nThis entry-level internship introduces students to basic lab techniques, biosafety, and documentation. Interns assist in assembling lab equipment and learning about biomedical devices and their applications.";
+	                        break;
+	                }               
+	                break;
+	            case 2://year 2
+	                max = 2;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nMedical Device Design Internship:\n\nInterns assist in creating 3D models and prototypes of simple medical devices using CAD tools. They learn about biocompatibility, materials, and basic FDA regulatory requirements.";
+	                        break;
+	                    case 2:
+	                        internship = "\nBiomedical Research Internship:\n\nInterns participate in experimental setups related to tissue engineering or biomaterials. They collect data, maintain lab records, and gain exposure to scientific research practices.";
+	                        break;
+	                }    
+	                break;
+	            case 3://year 3
+	                max = 7;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nClinical Engineering Internship:\n\nInterns work in hospital engineering departments maintaining and calibrating medical equipment. They gain real-world understanding of device safety and hospital operations.";
+	                        break;
+	                    case 2:
+	                        internship = "\nBiomechanics Internship:\n\nAssist engineers in analyzing motion, stress, and material behavior in biological systems. Interns use simulation software to study human movement or prosthetic design.";
+	                        break;
+	                    case 3:
+	                        internship = "\nTissue Engineering Internship:\n\nInterns work with researchers culturing cells and developing tissue scaffolds. They learn sterile techniques and gain exposure to regenerative medicine principles.";
+	                        break;
+	                    case 4:
+	                        internship = "\nBiomedical Data Analysis Internship:\n\nInterns analyze medical datasets to identify patterns related to health outcomes. They use statistical software and basic programming to support research conclusions.";
+	                        break;
+	                    case 5:
+	                        internship = "\nBioinstrumentation Internship:\n\nAssist in designing and testing sensors for physiological signal monitoring. Interns gain practical experience with circuits, microcontrollers, and biosignal processing.";
+	                        break;
+	                    case 6:
+	                        internship = "\nRehabilitation Engineering Internship:\n\nInterns help develop assistive and rehabilitation technologies such as prosthetics or mobility aids. They learn human-centered design and usability testing.";
+	                        break;
+	                    case 7:
+	                        internship = "\nMedical Imaging Internship:\n\nInterns learn about imaging modalities such as MRI, CT, and ultrasound. They assist in calibration, image processing, and equipment evaluation projects.";
+	                        break;
+	                }    
+	                break;
+	            case 4://year 4
+	                max = 10;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nBiomedical Product Development Internship:\n\nInterns collaborate on advanced device design, testing, and validation processes. They learn about clinical trials, documentation, and commercialization steps.";
+	                        break;
+	                    case 2:
+	                        internship = "\nRegulatory Affairs Internship:\n\nInterns assist in preparing FDA and ISO documentation for medical devices. They gain insight into compliance, safety standards, and product approval workflows.";
+	                        break;
+	                    case 3:
+	                        internship = "\nNeural Engineering Internship:\n\nInterns work on research or development of brain-computer interfaces and neural sensors. They apply signal analysis and electronics principles to human-machine systems.";
+	                        break;
+	                    case 4:
+	                        internship = "\nBiomaterials Internship:\n\nInterns test and characterize materials used in implants or tissue scaffolds. They study properties like strength, biocompatibility, and degradation behavior.";
+	                        break;
+	                    case 5:
+	                        internship = "\nClinical Research Internship:\n\nAssist in managing and monitoring clinical trials. Interns work on data integrity, patient documentation, and ethical compliance for biomedical studies.";
+	                        break;
+	                    case 6:
+	                        internship = "\nProsthetics and Orthotics Internship:\n\nInterns contribute to the design and fitting of prosthetic limbs or orthotic devices. They learn anatomy, ergonomics, and customization techniques for patient comfort.";
+	                        break;
+	                    case 7:
+	                        internship = "\nBiomedical Software Internship:\n\nWork on software systems for data collection or medical imaging analysis. Interns learn programming basics for healthcare technology solutions.";
+	                        break;
+	                    case 8:
+	                        internship = "\nMedical Robotics Internship:\n\nAssist in developing robotic surgical or rehabilitation systems. Interns learn about mechanical design, control algorithms, and system integration.";
+	                        break;
+	                    case 9:
+	                        internship = "\nPharmaceutical Engineering Internship:\n\nInterns help optimize drug delivery systems and manufacturing processes. They apply chemical and mechanical concepts to biomedical product design.";
+	                        break;
+	                    case 10:
+	                        internship = "\nBiomedical Innovation Internship:\n\nInterns collaborate with multidisciplinary teams to develop new healthcare solutions. They engage in concept prototyping, testing, and innovation documentation.";
+	                        break;
+	                }    
+	                break;
+	        }
+	        break;
+
+	    case "AE":
+	        min = 1;
+	        max = 1;
+	        switch(year){
+	            case 1://year 1
+	                max = 1;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nIntro to Aerospace Systems Internship:\n\nThis beginner-level internship introduces students to fundamental aerospace concepts, including aircraft structure and propulsion basics. Interns assist in lab experiments, learning about aerodynamics and safety in aerospace environments.";
+	                        break;
+	                }               
+	                break;
+	            case 2://year 2
+	                max = 2;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nAerospace Design Internship:\n\nInterns help create CAD models of aircraft components using SolidWorks or CATIA. They gain hands-on experience in design documentation, tolerance analysis, and prototype evaluation.";
+	                        break;
+	                    case 2:
+	                        internship = "\nWind Tunnel Testing Internship:\n\nAssist in experimental testing of aerodynamic models within wind tunnels. Interns collect airflow and pressure data to understand lift, drag, and design optimization.";
+	                        break;
+	                }    
+	                break;
+	            case 3://year 3
+	                max = 7;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nFlight Systems Internship:\n\nInterns work on control systems, navigation sensors, and avionics testing. They gain experience in system integration and flight data analysis.";
+	                        break;
+	                    case 2:
+	                        internship = "\nPropulsion Engineering Internship:\n\nAssist in evaluating engine performance and combustion systems. Interns learn thermodynamic analysis and simulation techniques for propulsion systems.";
+	                        break;
+	                    case 3:
+	                        internship = "\nAerodynamics Internship:\n\nInterns perform computational simulations using CFD tools like ANSYS Fluent. They analyze airflows over wings and optimize aerodynamic efficiency.";
+	                        break;
+	                    case 4:
+	                        internship = "\nSpace Systems Internship:\n\nParticipate in spacecraft subsystem design or orbital analysis. Interns gain exposure to mission planning and satellite component development.";
+	                        break;
+	                    case 5:
+	                        internship = "\nStructures and Materials Internship:\n\nInterns assist in testing lightweight materials and analyzing stress behavior in aerospace components. They learn to apply finite element analysis in design validation.";
+	                        break;
+	                    case 6:
+	                        internship = "\nAvionics Internship:\n\nWork on electronic and control systems in aircraft or drones. Interns gain hands-on experience with sensors, wiring, and system calibration.";
+	                        break;
+	                    case 7:
+	                        internship = "\nUnmanned Aerial Vehicle (UAV) Internship:\n\nInterns assist in the design, assembly, and testing of UAV platforms. They contribute to flight control tuning, sensor integration, and prototype development.";
+	                        break;
+	                }    
+	                break;
+	            case 4://year 4
+	                max = 10;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nAerospace Design Engineering Internship:\n\nInterns participate in detailed aircraft or spacecraft component design. They apply simulation tools and engineering standards to optimize performance and safety.";
+	                        break;
+	                    case 2:
+	                        internship = "\nFlight Testing Internship:\n\nAssist in pre-flight inspections, data acquisition, and post-flight performance analysis. Interns learn testing protocols and instrumentation calibration.";
+	                        break;
+	                    case 3:
+	                        internship = "\nRocket Propulsion Internship:\n\nInterns support rocket motor testing and analysis of thrust and fuel efficiency. They gain insight into combustion science and propulsion mechanics.";
+	                        break;
+	                    case 4:
+	                        internship = "\nSpace Mission Design Internship:\n\nWork with teams planning mission trajectories and satellite payload integration. Interns use orbital mechanics tools to assist in mission simulations.";
+	                        break;
+	                    case 5:
+	                        internship = "\nAerospace Simulation Internship:\n\nInterns perform dynamic modeling of flight systems using MATLAB or Simulink. They learn how control laws and physics models affect performance stability.";
+	                        break;
+	                    case 6:
+	                        internship = "\nAircraft Maintenance Engineering Internship:\n\nAssist maintenance teams in inspecting and troubleshooting aircraft systems. Interns learn aviation regulations, documentation, and repair procedures.";
+	                        break;
+	                    case 7:
+	                        internship = "\nThermal Control Systems Internship:\n\nInterns study heat management in spacecraft and propulsion systems. They analyze cooling mechanisms and material insulation properties.";
+	                        break;
+	                    case 8:
+	                        internship = "\nAerospace Manufacturing Internship:\n\nWork with composite materials and automated production tools. Interns learn quality assurance, CNC machining, and process optimization.";
+	                        break;
+	                    case 9:
+	                        internship = "\nSpace Robotics Internship:\n\nInterns assist in the design and testing of robotic arms or autonomous systems for space applications. They explore motion control and reliability in extreme conditions.";
+	                        break;
+	                    case 10:
+	                        internship = "\nAerospace Systems Integration Internship:\n\nInterns collaborate across subsystems, ensuring compatibility between structures, electronics, and propulsion. They develop an understanding of system-level engineering practices.";
+	                        break;
+	                }    
+	                break;
+	        }
+	        break;
+
+	    case "EE":
+	        min = 1;
+	        max = 1;
+	        switch(year){
+	            case 1://year 1
+	                max = 1;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nIntro to Circuits Internship:\n\nAn introductory internship focused on learning basic electrical components and circuits. Interns assist with simple breadboard projects, testing voltage, and understanding Ohm’s law in practice.";
+	                        break;
+	                }               
+	                break;
+	            case 2://year 2
+	                max = 2;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nEmbedded Systems Internship:\n\nInterns work with microcontrollers such as Arduino or Raspberry Pi to design basic embedded applications. They learn coding in C/C++, wiring, and debugging hardware interfaces.";
+	                        break;
+	                    case 2:
+	                        internship = "\nControl Systems Internship:\n\nAssist in developing simple automation and feedback systems. Interns use sensors and actuators to understand system response and control theory concepts.";
+	                        break;
+	                }    
+	                break;
+	            case 3://year 3
+	                max = 7;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nPower Systems Internship:\n\nInterns support the design and maintenance of power distribution networks. They learn about transformers, load flow, and electrical safety protocols.";
+	                        break;
+	                    case 2:
+	                        internship = "\nCommunication Systems Internship:\n\nAssist in testing antennas, wireless modules, or fiber optic systems. Interns analyze signal transmission and reception performance.";
+	                        break;
+	                    case 3:
+	                        internship = "\nElectronics Design Internship:\n\nInterns design and simulate circuit boards using software like Multisim or Altium. They assemble prototypes and test signal integrity.";
+	                        break;
+	                    case 4:
+	                        internship = "\nRenewable Energy Internship:\n\nWork on projects involving solar panels, inverters, and power converters. Interns learn efficiency optimization and sustainable energy integration.";
+	                        break;
+	                    case 5:
+	                        internship = "\nInstrumentation Internship:\n\nInterns assist in setting up sensors, transducers, and data acquisition systems. They collect and analyze measurement data from industrial equipment.";
+	                        break;
+	                    case 6:
+	                        internship = "\nSignal Processing Internship:\n\nApply digital filtering and signal analysis using MATLAB or Python. Interns learn techniques for improving sound or image data quality.";
+	                        break;
+	                    case 7:
+	                        internship = "\nAutomation Internship:\n\nInterns help program PLCs and test control loops in industrial environments. They gain hands-on experience with sensors, actuators, and logic design.";
+	                        break;
+	                }    
+	                break;
+	            case 4://year 4
+	                max = 10;
+	                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+	                switch(randomInt){
+	                    case 1:
+	                        internship = "\nCircuit Design Internship:\n\nInterns design and test advanced analog and digital circuits. They gain exposure to PCB layout, signal conditioning, and circuit troubleshooting.";
+	                        break;
+	                    case 2:
+	                        internship = "\nEmbedded Hardware Internship:\n\nAssist in developing firmware and hardware integration for IoT or embedded products. Interns work with microprocessors, sensors, and real-time debugging tools.";
+	                        break;
+	                    case 3:
+	                        internship = "\nPower Electronics Internship:\n\nInterns study converters, rectifiers, and power supply design. They contribute to projects improving energy efficiency and stability in electrical systems.";
+	                        break;
+	                    case 4:
+	                        internship = "\nTelecommunications Internship:\n\nSupport communication network configuration and testing. Interns work with transmission systems, modulation techniques, and network diagnostics.";
+	                        break;
+	                    case 5:
+	                        internship = "\nRobotics and Mechatronics Internship:\n\nInterns design and wire robotic control systems. They apply sensor feedback and circuit interfacing to develop automated solutions.";
+	                        break;
+	                    case 6:
+	                        internship = "\nRenewable Power Systems Internship:\n\nAssist in the design and monitoring of solar or wind power systems. Interns learn about grid-tie inverters, power electronics, and data acquisition.";
+	                        break;
+	                    case 7:
+	                        internship = "\nVLSI Design Internship:\n\nInterns learn chip design fundamentals using HDL languages. They simulate logic circuits and understand semiconductor manufacturing basics.";
+	                        break;
+	                    case 8:
+	                        internship = "\nAutomation and Controls Internship:\n\nAssist in designing industrial automation systems using PLCs and SCADA. Interns integrate control loops for optimized performance.";
+	                        break;
+	                    case 9:
+	                        internship = "\nSmart Grid Internship:\n\nInterns participate in developing intelligent power distribution systems. They explore data-driven energy management and IoT integration for grids.";
+	                        break;
+	                    case 10:
+	                        internship = "\nResearch in Electrical Systems Internship:\n\nWork with academic or industrial researchers on advanced electrical or renewable projects. Interns focus on innovation and data-driven experimentation.";
+	                        break;
+	                }    
+	                break;
+	        }
+	        break;
+        case "BIO":
+    min = 1;
+    max = 1;
+    switch(year){
+        case 1://year 1
+            max = 1;
+            randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
+            switch(randomInt){
+                case 1:
+                    internship = "\nLaboratory Assistant Internship:\n\nAn introductory lab internship focusing on basic biology techniques. Interns assist with sample labeling, microscope use, and maintaining clean lab conditions while learning safety protocols.";
+                    break;
+            }                
             break;
-	    case "civil engineering":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }               
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3:
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4:
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
-
-	        break;
-
-	    case "biomedical engineering":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }               
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3:
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4:
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
-	        break;
-
-	    case "aerospace engineering":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }                
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3:
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4:
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
-
-	        break;
-
-	    case "electrical engineering":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }                
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3:
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4:
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
+        case 2://year 2
+            max = 2;
+            randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+            switch(randomInt){
+                case 1:
+                    internship = "\nMicrobiology Internship:\n\nInterns work with bacterial cultures and learn aseptic techniques, media preparation, and microbial identification. They gain experience in data collection and sterile lab practices.";
+                    break;
+                case 2:
+                    internship = "\nEcology Internship:\n\nAssist in field research involving plant and animal population studies. Interns collect environmental data, perform habitat assessments, and support ecological data analysis.";
+                    break;
+            }    
             break;
-        case "biology":
-        min = 1;
-        max = 1;
-            switch(year){
-                case 1://year 1
-                max = 1;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);    
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }                
-                case 2://year 2
-                max = 2;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 3://year 3
-                max = 7;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-                case 4://year 4
-                max = 10;
-                randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
-                switch(randomInt){
-                    case 1:
-                        internship = "";
-                        break;
-                }    
-            }
-	        break;
+        case 3://year 3
+            max = 7;
+            randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+            switch(randomInt){
+                case 1:
+                    internship = "\nGenetics Internship:\n\nInterns assist in DNA extraction, PCR, and gel electrophoresis. They gain exposure to genetic data analysis and learn how genes influence biological traits.";
+                    break;
+                case 2:
+                    internship = "\nBiomedical Research Internship:\n\nWork alongside scientists in a medical or pharmaceutical lab. Interns help with tissue culture, drug efficacy tests, and experiment documentation.";
+                    break;
+                case 3:
+                    internship = "\nMarine Biology Internship:\n\nAssist in studying aquatic life and ecosystems. Interns collect and analyze water samples and observe marine organisms in controlled or field environments.";
+                    break;
+                case 4:
+                    internship = "\nEnvironmental Biology Internship:\n\nInterns monitor air, water, or soil quality in environmental protection projects. They contribute to conservation data reporting and sustainability efforts.";
+                    break;
+                case 5:
+                    internship = "\nBotany Internship:\n\nAssist in plant identification, classification, and growth experiments. Interns learn about plant physiology, greenhouse management, and data collection techniques.";
+                    break;
+                case 6:
+                    internship = "\nZoology Internship:\n\nInterns observe animal behavior and assist with care in research or conservation facilities. They participate in biological data collection and animal monitoring activities.";
+                    break;
+                case 7:
+                    internship = "\nBiochemistry Internship:\n\nWork in labs conducting enzyme assays or protein analysis. Interns gain practical experience with spectrophotometry and other molecular biology tools.";
+                    break;
+            }    
+            break;
+        case 4://year 4
+            max = 10;
+            randomInt = ThreadLocalRandom.current().nextInt(min,max+1);
+            switch(randomInt){
+                case 1:
+                    internship = "\nMolecular Biology Internship:\n\nInterns perform advanced lab work including cloning, sequencing, and gene expression studies. They contribute to ongoing research in cellular biology.";
+                    break;
+                case 2:
+                    internship = "\nPharmaceutical Research Internship:\n\nAssist in drug discovery or testing phases under supervision. Interns document test results and gain experience in regulatory lab environments.";
+                    break;
+                case 3:
+                    internship = "\nBioinformatics Internship:\n\nInterns analyze biological datasets using computational tools like Python or R. They work with genomic data to identify trends or mutations.";
+                    break;
+                case 4:
+                    internship = "\nEnvironmental Health Internship:\n\nWork with public health or environmental agencies to monitor pollution and biological risk factors. Interns assist in data analysis and community reporting.";
+                    break;
+                case 5:
+                    internship = "\nClinical Laboratory Internship:\n\nInterns rotate through diagnostic testing areas such as hematology or microbiology. They assist in specimen processing and result validation.";
+                    break;
+                case 6:
+                    internship = "\nNeuroscience Internship:\n\nAssist with brain or nervous system research, including behavioral and physiological studies. Interns handle data collection and learn imaging or recording techniques.";
+                    break;
+                case 7:
+                    internship = "\nBiotechnology Internship:\n\nInterns work with bio-manufacturing processes like fermentation or genetic modification. They help test prototypes and learn production-scale biology.";
+                    break;
+                case 8:
+                    internship = "\nForensic Biology Internship:\n\nAssist forensic scientists in analyzing biological evidence such as DNA or blood samples. Interns learn about legal chain-of-custody and lab accuracy standards.";
+                    break;
+                case 9:
+                    internship = "\nPublic Health Research Internship:\n\nInterns participate in epidemiological studies and data collection on health patterns. They help analyze biological data for disease prevention efforts.";
+                    break;
+                case 10:
+                    internship = "\nResearch Assistant Internship:\n\nWork directly with faculty or scientists on independent research projects. Interns help design experiments, collect data, and prepare reports for publication.";
+                    break;
+            }    
+            break;
+    }
+    break;
 	    default:
 	        System.out.printf("\n\nInternship positions for %s major are currently unavaliable",major);
 	        break;
 	}
-
+        System.out.print(internship);
 	    return internship;
 	}
     
