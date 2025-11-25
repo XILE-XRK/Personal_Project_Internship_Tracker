@@ -212,6 +212,7 @@ public class Internship_Tracker{
 		System.out.println("\nInternship Accepted!");
 		try(BufferedWriter UsrFile = new BufferedWriter(new FileWriter(currentUser.getUsrName(),true))){
 			UsrFile.write("\n"+internship);
+			UsrFile.write("\nTotal Scholarship/Grant/Award Money:\n--------------------------------------------------\n");
 			UsrFile.close();
 			ark = 1;
 			
@@ -260,7 +261,8 @@ public class Internship_Tracker{
 		UsrResp2 = UsrResp2.toLowerCase();
 		if(UsrResp2.equals("yes")){
 			try(BufferedWriter Adolo = new BufferedWriter(new FileWriter(currentUser.getUsrName(),true))){
-				Adolo.write("\nTotal Scholarship/Grant/Award Money:\n--------------------------------------------------\n"+award);
+				Adolo.write("\n"+award);
+				System.out.println("\nOffer accepted");
 				Adolo.close();
 				rdk++;
 			}
